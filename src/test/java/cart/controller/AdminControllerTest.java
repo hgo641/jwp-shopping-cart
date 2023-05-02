@@ -15,26 +15,27 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 class AdminControllerTest {
     @MockBean
     private ProductService productService;
-    
+
     @BeforeEach
     void setUp() {
+        RestAssuredMockMvc.standaloneSetup();
         RestAssuredMockMvc.standaloneSetup(new AdminController(productService));
     }
-    
+
     @Test
     void 상품을_생성한다() {
         RestAssuredMockMvc.given().log().all()
                 .when().post("/admin")
                 .then().log().all();
     }
-    
+
     @Test
     void 상품을_수정한다() {
         RestAssuredMockMvc.given().log().all()
                 .when().put("/admin/1")
                 .then().log().all();
     }
-    
+
     @Test
     void 상품을_삭제한다() {
         RestAssuredMockMvc.given().log().all()
